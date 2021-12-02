@@ -35,7 +35,7 @@ function verificadados()
 
 function validaCpf(cpf)
 {
-	let soma = [0, 0];
+	let soma = [0, 0, 0];
 	for(var i = 0; i<9; i++)
 	{
 		soma[0] += cpf[i] * (i+1);
@@ -44,7 +44,15 @@ function validaCpf(cpf)
 
 	soma[1] += cpf[9] * 9;
 
-	if(soma[0]%11 == cpf[9] && soma[1]%11 == cpf[10])
+	for (var i = 0; i < 11; i++)
+	{
+		if(cpf[i] == cpf[1+1])
+		{
+			soma[2]++;
+		}
+	}
+
+	if(soma[0]%11 == cpf[9] && soma[1]%11 == cpf[10] && soma[2] != 11)
 	{
 		return true;
 	}
@@ -72,4 +80,10 @@ function calculaIdade(datanasc)
 	}
 
 	return idade;
+}
+
+function limpar()
+{
+	document.querySelector(".erroIdade").innerHTML = "";
+	document.querySelector(".erroCpf").innerHTML = "";
 }
